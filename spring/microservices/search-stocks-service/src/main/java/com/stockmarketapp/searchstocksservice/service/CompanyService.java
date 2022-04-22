@@ -1,13 +1,13 @@
-package service;
+package com.stockmarketapp.searchstocksservice.service;
 
-import exception.CompanyNotFoundException;
-import model.Company;
+import com.stockmarketapp.searchstocksservice.exception.CompanyNotFoundException;
+import com.stockmarketapp.searchstocksservice.model.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import repository.CompanyRepository;
+import com.stockmarketapp.searchstocksservice.repository.CompanyRepository;
 
 import java.util.List;
 import java.util.Optional;

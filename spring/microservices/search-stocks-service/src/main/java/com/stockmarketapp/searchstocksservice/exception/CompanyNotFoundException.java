@@ -1,4 +1,4 @@
-package exception;
+package com.stockmarketapp.searchstocksservice.exception;
 
 public class CompanyNotFoundException extends Exception {
 

@@ -1,6 +1,6 @@
-package repository;
+package com.stockmarketapp.searchstocksservice.repository;
 
-import model.Company;
+import com.stockmarketapp.searchstocksservice.model.Company;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface CompanyRepository extends MongoRepository<Company, String> {

@@ -6,12 +6,12 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.6.6</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/> <!-- lookup parent from com.stockmarketapp.searchstocksservice.repository -->
 	</parent>
 	<groupId>com.stockmarketapp</groupId>
 	<artifactId>search-stocks-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>search-stocks-service</name>
+	<name>search-stocks-com.stockmarketapp.searchstocksservice.service</name>
 	<description>Application to manage stocks in application</description>
 	<properties>
 		<java.version>1.8</java.version>
@@ -45,6 +45,10 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

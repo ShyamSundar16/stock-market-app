@@ -1,4 +1,4 @@
-package config;
+package com.stockmarketapp.searchstocksservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
