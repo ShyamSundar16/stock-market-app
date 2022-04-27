@@ -1,4 +1,4 @@
-package com.stockmarketapp.searchstocksservice.model;
+package com.stockmarketapp.stocksmanagementservice.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Document(collection = "company")
 @Getter
@@ -18,7 +19,6 @@ public class Company {
     private int _id;
     @Indexed(unique = true)
     private String companyName;
-    //TODO revist the attribute
     private String companyCode;
     private String companyCeo;
     private BigDecimal companyTurnover;

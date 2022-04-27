@@ -1,4 +1,4 @@
-package com.stockmarketapp.searchstocksservice.model;
+package com.stockmarketapp.stocksmanagementservice.model;
 
 import lombok.Getter;
 import lombok.Setter;
