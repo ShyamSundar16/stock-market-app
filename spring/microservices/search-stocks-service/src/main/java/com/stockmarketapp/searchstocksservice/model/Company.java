@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Document(collection = "company")
 @Getter
@@ -24,4 +25,5 @@ public class Company {
     private BigDecimal companyTurnover;
     private String companyWebsite;
     private String stockExchange;
+    private List<Stock> stocks;
 }

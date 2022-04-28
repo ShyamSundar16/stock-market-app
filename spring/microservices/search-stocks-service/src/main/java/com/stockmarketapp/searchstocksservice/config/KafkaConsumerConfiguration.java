@@ -2,10 +2,12 @@ package com.stockmarketapp.searchstocksservice.config;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import com.stockmarketapp.searchstocksservice.model.Company;
 import com.stockmarketapp.searchstocksservice.model.Stock;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +21,7 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 @Configuration
 public class KafkaConsumerConfiguration {
 
-    @Bean
+/*    @Bean
     public ConsumerFactory<String, Company> companyConsumerFactory() {
         Map<String, Object> config = new HashMap<>();
 
@@ -56,5 +58,36 @@ public class KafkaConsumerConfiguration {
         ConcurrentKafkaListenerContainerFactory<String, Stock> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(stockConsumerFactory());
         return factory;
+    }*/
+
+    @Bean
+    private static Properties getKafkaConsumerConfig(){
+        Properties consumerProps = new Properties();
+        consumerProps.put(ConsumerConfig.CLIENT_ID_CONFIG, "stock-market-app");
+        consumerProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, CustomDeserializer.class);
+        consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, "Sample-grp_id");
+        consumerProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+        return consumerProps;
     }
+
+    @Bean
+    public static KafkaConsumer<String,Company> addCompanyConsumer(){
+        KafkaConsumer<String, Company> addCompanyConsumer=new KafkaConsumer<String,Company>(getKafkaConsumerConfig());
+        return addCompanyConsumer;
+    }
+
+    @Bean
+    public static KafkaConsumer<String,Stock> addStockConsumer(){
+        KafkaConsumer<String, Stock> addStockConsumer=new KafkaConsumer<String,Stock>(getKafkaConsumerConfig());
+        return addStockConsumer;
+    }
+
+    @Bean
+    public static KafkaConsumer<String,String> deleteCompanyConsumer(){
+        KafkaConsumer<String, String> deleteCompanyConsumer=new KafkaConsumer<String,String>(getKafkaConsumerConfig());
+        return deleteCompanyConsumer;
+    }
+
 }

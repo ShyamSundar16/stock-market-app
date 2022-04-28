@@ -3,6 +3,7 @@ package com.stockmarketapp.stocksmanagementservice.config;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -27,6 +28,7 @@ import com.stockmarketapp.stocksmanagementservice.model.Stock;
 @EnableKafka
 @Configuration
 public class KafkaProducerConfiguration {
+/*
     @Bean
 	public Map<String, Object> companyProducerFactory() {
 		Map<String, Object> configMap = new HashMap<>();
@@ -41,7 +43,7 @@ public class KafkaProducerConfiguration {
 	public KafkaProducer<String, Company> kafkaCompanyProducer() {
 		return new KafkaProducer<String, Company>(companyProducerFactory());
 	}
-	
+
 	@Bean
     public  Map<String, Object> producerStockProperties() {
         Map<String, Object> configProps = new HashMap<>();
@@ -56,19 +58,33 @@ public class KafkaProducerConfiguration {
     public KafkaProducer<String, Stock> kafkaStockProducer() {
         return new KafkaProducer<String, Stock>(producerStockProperties());
     }
+*/
 
-   /* @Bean
-    public  Map<String, String> deleteCompanyProperties() {
-        Map<String, String> configProps = new HashMap<>();
-        configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        configProps.put(ProducerConfig.RETRIES_CONFIG,"2000");
-        configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        return configProps;
+    @Bean
+    private static Properties getKafkaProducerConfig(){
+        Properties props=new Properties();
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, CustomSerializer.class);
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, "stock-market-app");
+        return props;
     }
 
     @Bean
-    public KafkaProducer<String, String> kafkaCompanyProducer() {
-        return new KafkaProducer<String, String>(deleteCompanyProperties());
-    }*/
+    public static KafkaProducer<String, Company> addCompanyProducer(){
+        KafkaProducer<String, Company> companyKafkaProducer=new KafkaProducer<String,Company>(getKafkaProducerConfig());
+        return companyKafkaProducer;
+    }
+
+    @Bean
+    public static KafkaProducer<String, Stock> addStockProducer(){
+        KafkaProducer<String, Stock> stockKafkaProducer=new KafkaProducer<String,Stock>(getKafkaProducerConfig());
+        return stockKafkaProducer;
+    }
+
+    @Bean
+    public static KafkaProducer<String, String> deleteCompanyProducer(){
+        KafkaProducer<String, String> deleteCompanyProducer=new KafkaProducer<String,String>(getKafkaProducerConfig());
+        return deleteCompanyProducer;
+    }
 }

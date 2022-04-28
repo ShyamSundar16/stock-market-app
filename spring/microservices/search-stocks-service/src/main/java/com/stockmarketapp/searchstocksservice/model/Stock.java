@@ -19,5 +19,5 @@ public class Stock {
     private String companyName;
     private String companyCode;
     private BigDecimal stockPrice;
-    private Date DateTime;
+    private Date createdAt;
 }
