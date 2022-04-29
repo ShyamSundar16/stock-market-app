@@ -2,9 +2,13 @@ package com.stockmarketapp.searchstocksservice.controller;
 
 import com.stockmarketapp.searchstocksservice.exception.CompanyNotFoundException;
 import com.stockmarketapp.searchstocksservice.model.Company;
+import com.stockmarketapp.searchstocksservice.model.Stock;
+import com.stockmarketapp.searchstocksservice.repository.CompanyRepository;
+import com.stockmarketapp.searchstocksservice.repository.StockRepository;
 import com.stockmarketapp.searchstocksservice.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +26,14 @@ public class SearchController {
 
     @Autowired
     CompanyService companyService;
+    @Autowired
+    CompanyRepository companyRepository;
+    @Autowired
+    StockRepository stockRepository;
+
+    private static final String ADD_COMPANY_TOPIC = "add_company";
+    private static final String ADD_STOCK_TOPIC = "add_stock";
+    private static final String DELETE_COMPANY_TOPIC = "delete_company";
 
     @CrossOrigin
     @GetMapping("/company/getAll")
@@ -41,21 +53,21 @@ public class SearchController {
         return companyService.getStockPricesForCompany(companyCode, startDate, endDate);
     }
 
-/*    @KafkaListener(topics = ADD_COMPANY_TOPIC, groupId="group_id", containerFactory = "userKafkaListenerFactory")
+    @KafkaListener(topics = ADD_COMPANY_TOPIC, groupId="group_id", containerFactory = "companyKafkaListenerFactory")
     public void consumeJson(Company company) {
         System.out.println("Consumed Message: " + company);
         companyRepository.save(company);
     }
 
-    @KafkaListener(topics = ADD_STOCK_TOPIC, groupId="group_id", containerFactory = "userKafkaListenerFactory")
+    @KafkaListener(topics = ADD_STOCK_TOPIC, groupId="group_id", containerFactory = "stockKafkaListenerFactory")
     public void consumeJson(Stock stock) {
         System.out.println("Consumed Message: " + stock);
         stockRepository.save(stock);
     }
 
-    @KafkaListener(topics = DELETE_COMPANY_TOPIC, groupId="group_id", containerFactory = "userKafkaListenerFactory")
+    @KafkaListener(topics = DELETE_COMPANY_TOPIC, groupId="group_id", containerFactory = "deleteCompanyKafkaListenerFactory")
     public void consumeJson(String companyCode) {
         System.out.println("Consumed Message: " + companyCode);
-        companyRepository.deleteById(companyCode);
-    }*/
+        companyRepository.deleteByCompanyCode(companyCode);
+    }
 }

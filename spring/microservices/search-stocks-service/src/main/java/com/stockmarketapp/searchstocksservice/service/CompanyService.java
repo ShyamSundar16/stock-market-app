@@ -1,13 +1,9 @@
 package com.stockmarketapp.searchstocksservice.service;
 
-import com.stockmarketapp.searchstocksservice.config.KafkaConsumerConfiguration;
 import com.stockmarketapp.searchstocksservice.exception.CompanyNotFoundException;
 import com.stockmarketapp.searchstocksservice.model.Company;
 import com.stockmarketapp.searchstocksservice.model.Stock;
 import com.stockmarketapp.searchstocksservice.repository.StockRepository;
-import org.apache.commons.lang.time.DateUtils;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -17,9 +13,6 @@ import com.stockmarketapp.searchstocksservice.repository.CompanyRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 

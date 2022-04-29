@@ -2,12 +2,10 @@ package com.stockmarketapp.searchstocksservice.config;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import com.stockmarketapp.searchstocksservice.model.Company;
 import com.stockmarketapp.searchstocksservice.model.Stock;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +19,7 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 @Configuration
 public class KafkaConsumerConfiguration {
 
-/*    @Bean
+    @Bean
     public ConsumerFactory<String, Company> companyConsumerFactory() {
         Map<String, Object> config = new HashMap<>();
 
@@ -58,8 +56,27 @@ public class KafkaConsumerConfiguration {
         ConcurrentKafkaListenerContainerFactory<String, Stock> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(stockConsumerFactory());
         return factory;
-    }*/
+    }
 
+    @Bean
+    public ConsumerFactory<String, String> deleteCompanyConsumerFactory() {
+        Map<String, Object> config = new HashMap<>();
+
+        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_id");
+        config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StockDeserializer.class);
+        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StockDeserializer.class );
+        return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(),
+                new StringDeserializer());
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, String> deleteCompanyKafkaListenerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(deleteCompanyConsumerFactory());
+        return factory;
+    }
+/*
     @Bean
     private static Properties getKafkaConsumerConfig(){
         Properties consumerProps = new Properties();
@@ -88,6 +105,6 @@ public class KafkaConsumerConfiguration {
     public static KafkaConsumer<String,String> deleteCompanyConsumer(){
         KafkaConsumer<String, String> deleteCompanyConsumer=new KafkaConsumer<String,String>(getKafkaConsumerConfig());
         return deleteCompanyConsumer;
-    }
+    }*/
 
 }

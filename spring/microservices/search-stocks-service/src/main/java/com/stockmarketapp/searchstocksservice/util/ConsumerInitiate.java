@@ -22,7 +22,7 @@ public class ConsumerInitiate {
     private static final String ADD_STOCK_TOPIC = "add_stock";
     private static final String DELETE_COMPANY_TOPIC = "delete_company";
 
-    public void startConsumer() {
+   /* public void startConsumer() {
         KafkaConsumer<String, Company> addCompanyConsumer = KafkaConsumerConfiguration.addCompanyConsumer();
         KafkaConsumer<String, Stock> addStockConsumer = KafkaConsumerConfiguration.addStockConsumer();
         KafkaConsumer<String, String> deleteCompanyConsumer = KafkaConsumerConfiguration.deleteCompanyConsumer();
@@ -53,5 +53,5 @@ public class ConsumerInitiate {
                 npe.printStackTrace();
             }
         }
-    }
+    }*/
 }

@@ -17,8 +17,8 @@ public class SearchStocksServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SearchStocksServiceApplication.class, args);
-		ConsumerInitiate consumerInitiate = new ConsumerInitiate();
-		consumerInitiate.startConsumer();
+		/*ConsumerInitiate consumerInitiate = new ConsumerInitiate();
+		consumerInitiate.startConsumer();*/
 	}
 
 }
