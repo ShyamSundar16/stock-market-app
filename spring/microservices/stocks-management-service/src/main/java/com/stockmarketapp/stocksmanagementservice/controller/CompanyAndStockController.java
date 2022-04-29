@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
+
 
 @CrossOrigin
 @RestController
@@ -37,6 +41,15 @@ public class CompanyAndStockController {
     KafkaTemplate<String, Stock> stockKafkaTemplate;
     @Autowired
      KafkaTemplate<String, String> deleteCompanyKafkaTemplate;
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    AtomicInteger count = new AtomicInteger(1);
+    @Scheduled(fixedDelay = 1000L)
+    void logSomeStuff() {
+
+        int index = count.getAndIncrement();
+        logger.info("Log message generated shyam " + index);
+    }
 
     @CrossOrigin
     @PostMapping("/company/register")
