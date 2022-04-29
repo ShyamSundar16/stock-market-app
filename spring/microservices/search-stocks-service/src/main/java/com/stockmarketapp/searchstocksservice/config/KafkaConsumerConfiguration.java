@@ -63,7 +63,7 @@ public class KafkaConsumerConfiguration {
     @Bean
     private static Properties getKafkaConsumerConfig(){
         Properties consumerProps = new Properties();
-        consumerProps.put(ConsumerConfig.CLIENT_ID_CONFIG, "stock-market-app");
+        //consumerProps.put(ConsumerConfig.CLIENT_ID_CONFIG, "stock-market-app");
         consumerProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, CustomDeserializer.class);
