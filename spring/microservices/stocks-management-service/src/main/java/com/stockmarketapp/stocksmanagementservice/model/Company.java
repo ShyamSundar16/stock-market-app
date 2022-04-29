@@ -7,16 +7,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 @Document(collection = "company")
 @Getter
 @Setter
 @ToString
 public class Company {
-    //private static final long serialVersionUID = 1L;
     @Id
     private int _id;
     @Indexed(unique = true)

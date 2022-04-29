@@ -1,24 +1,26 @@
 package com.stockmarketapp.stocksmanagementservice.controller;
-import com.stockmarketapp.stocksmanagementservice.config.KafkaProducerConfiguration;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
+
+import com.stockmarketapp.stocksmanagementservice.model.Company;
+import com.stockmarketapp.stocksmanagementservice.model.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.web.bind.annotation.*;
-
-import com.stockmarketapp.stocksmanagementservice.model.Company;
-import com.stockmarketapp.stocksmanagementservice.model.Stock;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/v1.0/market/")
+@RequestMapping("/api/v1.0/market")
 public class CompanyAndStockController {
    
 	@Autowired
@@ -26,23 +28,20 @@ public class CompanyAndStockController {
     private static final String ADD_COMPANY_TOPIC = "add_company";
     private static final String ADD_STOCK_TOPIC = "add_stock";
     private static final String DELETE_COMPANY_TOPIC = "delete_company";
-    private static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    AtomicInteger companyIdIndex = new AtomicInteger();
+    AtomicInteger stockIdIndex = new AtomicInteger();
 
-
     @Autowired
-    KafkaTemplate<String, Company> companykafkaTemplate;
+    KafkaTemplate<String, Company> companyKafkaTemplate;
     @Autowired
-    private KafkaTemplate<String, Stock> stockkafkaTemplate;
+    KafkaTemplate<String, Stock> stockKafkaTemplate;
     @Autowired
-    private KafkaTemplate<String, String>  deleteCompanykafkaTemplate;
-/*    private static final KafkaProducer<String, Company> addCompanyProducer= KafkaProducerConfiguration.addCompanyProducer();
-    private static final KafkaProducer<String, Stock> addStockProducerProducer= KafkaProducerConfiguration.addStockProducer();
-    private static final KafkaProducer<String, String> deleteCompanyProducerProducer= KafkaProducerConfiguration.deleteCompanyProducer();*/
+     KafkaTemplate<String, String> deleteCompanyKafkaTemplate;
 
     @CrossOrigin
-    @PostMapping("company/register")
+    @PostMapping("/company/register")
     public ResponseEntity<Company> saveCompany(@RequestBody Company company) {
-        //TODO test implementation - To be reomved
+        //TODO test implementation - To be removed
         Company newCompany = new Company();
         newCompany.setCompanyName("Company1");
         newCompany.setCompanyCode("COMP01");
@@ -51,30 +50,35 @@ public class CompanyAndStockController {
         newCompany.setStockExchange("NSE");
         newCompany.setCompanyTurnover(new BigDecimal(300000000));
 
-        companykafkaTemplate.send(ADD_COMPANY_TOPIC, newCompany);
-        companykafkaTemplate.flush();
+        company.set_id(companyIdIndex.incrementAndGet());
+        company.setCompanyCode(company.getCompanyName().substring(0, 4) +company.get_id());
+
+        companyKafkaTemplate.send(ADD_COMPANY_TOPIC, newCompany);
+        companyKafkaTemplate.flush();
     	return new ResponseEntity<Company>(company,HttpStatus.OK);
     }
     
   
     @CrossOrigin
-    @PostMapping("stock/add/{companyCode}")
+    @PostMapping("/stock/add/{companyCode}")
     public ResponseEntity<Stock> saveStock(@RequestBody Stock stock,@PathVariable String companyCode ) {
+        //TODO test implementation - To be removed
     	stock.setCompanyName(companyCode);
     	stock.setStockPrice(new BigDecimal(580));
     	stock.setCompanyCode("COMP01");
         stock.setCreatedAt(new Date());
-    	stock.setCompanyName(companyCode);
-        stockkafkaTemplate.send(ADD_STOCK_TOPIC, stock);
-        companykafkaTemplate.flush();
+
+        stock.set_id(stockIdIndex.incrementAndGet());
+        stockKafkaTemplate.send(ADD_STOCK_TOPIC, stock);
+        stockKafkaTemplate.flush();
         return new ResponseEntity<Stock>(stock,HttpStatus.OK);
     }
 
     @CrossOrigin
-    @DeleteMapping("company/delete/{companyCode}")
+    @DeleteMapping("/company/delete/{companyCode}")
     public ResponseEntity<?> deleteCompany(@PathVariable String companyCode) {
-        deleteCompanykafkaTemplate.send(DELETE_COMPANY_TOPIC, companyCode);
-        companykafkaTemplate.flush();
+        deleteCompanyKafkaTemplate.send(DELETE_COMPANY_TOPIC, companyCode);
+        deleteCompanyKafkaTemplate.flush();
         return new ResponseEntity<>(Boolean.TRUE,HttpStatus.OK);
     }
 }

@@ -76,35 +76,4 @@ public class KafkaConsumerConfiguration {
         factory.setConsumerFactory(deleteCompanyConsumerFactory());
         return factory;
     }
-/*
-    @Bean
-    private static Properties getKafkaConsumerConfig(){
-        Properties consumerProps = new Properties();
-        //consumerProps.put(ConsumerConfig.CLIENT_ID_CONFIG, "stock-market-app");
-        consumerProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, CustomDeserializer.class);
-        consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, "Sample-grp_id");
-        consumerProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
-        return consumerProps;
-    }
-
-    @Bean
-    public static KafkaConsumer<String,Company> addCompanyConsumer(){
-        KafkaConsumer<String, Company> addCompanyConsumer=new KafkaConsumer<String,Company>(getKafkaConsumerConfig());
-        return addCompanyConsumer;
-    }
-
-    @Bean
-    public static KafkaConsumer<String,Stock> addStockConsumer(){
-        KafkaConsumer<String, Stock> addStockConsumer=new KafkaConsumer<String,Stock>(getKafkaConsumerConfig());
-        return addStockConsumer;
-    }
-
-    @Bean
-    public static KafkaConsumer<String,String> deleteCompanyConsumer(){
-        KafkaConsumer<String, String> deleteCompanyConsumer=new KafkaConsumer<String,String>(getKafkaConsumerConfig());
-        return deleteCompanyConsumer;
-    }*/
-
 }

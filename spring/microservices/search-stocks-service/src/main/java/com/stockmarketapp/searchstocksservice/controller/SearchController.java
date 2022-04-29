@@ -48,7 +48,7 @@ public class SearchController {
     }
 
     @CrossOrigin
-    @GetMapping("/stock/get/<companyCode>/<startDate>/<endDate>")
+    @GetMapping("/stock/get/{companyCode}/{startDate}/{endDate}")
     public ResponseEntity<Company> getStockPricesForCompany(@PathVariable String  companyCode, @PathVariable String  startDate, @PathVariable String  endDate ) throws CompanyNotFoundException, ParseException {
         return companyService.getStockPricesForCompany(companyCode, startDate, endDate);
     }
@@ -68,6 +68,6 @@ public class SearchController {
     @KafkaListener(topics = DELETE_COMPANY_TOPIC, groupId="group_id", containerFactory = "deleteCompanyKafkaListenerFactory")
     public void consumeJson(String companyCode) {
         System.out.println("Consumed Message: " + companyCode);
-        companyRepository.deleteByCompanyCode(companyCode);
+        companyService.deleteCompanyByCode(companyCode);
     }
 }

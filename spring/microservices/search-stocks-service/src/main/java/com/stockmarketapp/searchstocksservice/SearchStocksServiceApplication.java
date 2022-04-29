@@ -1,6 +1,5 @@
 package com.stockmarketapp.searchstocksservice;
 
-import com.stockmarketapp.searchstocksservice.util.ConsumerInitiate;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -17,8 +16,6 @@ public class SearchStocksServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SearchStocksServiceApplication.class, args);
-		/*ConsumerInitiate consumerInitiate = new ConsumerInitiate();
-		consumerInitiate.startConsumer();*/
 	}
 
 }

@@ -18,9 +18,8 @@ public class Company {
     @Id
     private int _id;
     @Indexed(unique = true)
-    private String companyName;
-    //TODO revist the attribute
     private String companyCode;
+    private String companyName;
     private String companyCeo;
     private BigDecimal companyTurnover;
     private String companyWebsite;
