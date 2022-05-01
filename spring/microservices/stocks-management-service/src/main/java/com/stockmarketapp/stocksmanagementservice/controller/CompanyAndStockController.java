@@ -2,6 +2,8 @@ package com.stockmarketapp.stocksmanagementservice.controller;
 
 import com.stockmarketapp.stocksmanagementservice.model.Company;
 import com.stockmarketapp.stocksmanagementservice.model.Stock;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
 
 
 @CrossOrigin
@@ -43,13 +42,6 @@ public class CompanyAndStockController {
      KafkaTemplate<String, String> deleteCompanyKafkaTemplate;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    AtomicInteger count = new AtomicInteger(1);
-    @Scheduled(fixedDelay = 1000L)
-    void logSomeStuff() {
-
-        int index = count.getAndIncrement();
-        logger.info("Log message generated shyam " + index);
-    }
 
     @CrossOrigin
     @PostMapping("/company/register")
@@ -65,9 +57,10 @@ public class CompanyAndStockController {
 
         company.set_id(companyIdIndex.incrementAndGet());
         company.setCompanyCode(company.getCompanyName().substring(0, 4) +company.get_id());
-
+        logger.info("Registering a new company with companyCode {}.",newCompany.getCompanyCode());
         companyKafkaTemplate.send(ADD_COMPANY_TOPIC, newCompany);
         companyKafkaTemplate.flush();
+        logger.info("Successfully sent to Add Company topic.");
     	return new ResponseEntity<Company>(company,HttpStatus.OK);
     }
     
@@ -82,16 +75,20 @@ public class CompanyAndStockController {
         stock.setCreatedAt(new Date());
 
         stock.set_id(stockIdIndex.incrementAndGet());
+        logger.info("Registering a new Stock for a companyCode {}.",companyCode);
         stockKafkaTemplate.send(ADD_STOCK_TOPIC, stock);
         stockKafkaTemplate.flush();
+        logger.info("Successfully sent to Add Stock topic.");
         return new ResponseEntity<Stock>(stock,HttpStatus.OK);
     }
 
     @CrossOrigin
     @DeleteMapping("/company/delete/{companyCode}")
     public ResponseEntity<?> deleteCompany(@PathVariable String companyCode) {
+        logger.info("Deleting a company with companyCode {}.",companyCode);
         deleteCompanyKafkaTemplate.send(DELETE_COMPANY_TOPIC, companyCode);
         deleteCompanyKafkaTemplate.flush();
+        logger.info("Successfully sent to Delete Company topic.");
         return new ResponseEntity<>(Boolean.TRUE,HttpStatus.OK);
     }
 }

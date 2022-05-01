@@ -6,6 +6,8 @@ import com.stockmarketapp.searchstocksservice.model.Stock;
 import com.stockmarketapp.searchstocksservice.repository.CompanyRepository;
 import com.stockmarketapp.searchstocksservice.repository.StockRepository;
 import com.stockmarketapp.searchstocksservice.service.CompanyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -35,6 +37,7 @@ public class SearchController {
     private static final String ADD_STOCK_TOPIC = "add_stock";
     private static final String DELETE_COMPANY_TOPIC = "delete_company";
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @CrossOrigin
     @GetMapping("/company/getAll")
     public List<Company> getAllCompanies() {
@@ -55,19 +58,22 @@ public class SearchController {
 
     @KafkaListener(topics = ADD_COMPANY_TOPIC, groupId="group_id", containerFactory = "companyKafkaListenerFactory")
     public void consumeJson(Company company) {
-        System.out.println("Consumed Message: " + company);
+        logger.info("Request received for registering a new company with companyCode {}",company.getCompanyCode());
         companyRepository.save(company);
+        logger.info("Company registered successfully.");
     }
 
     @KafkaListener(topics = ADD_STOCK_TOPIC, groupId="group_id", containerFactory = "stockKafkaListenerFactory")
     public void consumeJson(Stock stock) {
-        System.out.println("Consumed Message: " + stock);
+        logger.info("Request received for adding a new stock");
         stockRepository.save(stock);
+        logger.info("Stock added successfully.");
     }
 
     @KafkaListener(topics = DELETE_COMPANY_TOPIC, groupId="group_id", containerFactory = "deleteCompanyKafkaListenerFactory")
     public void consumeJson(String companyCode) {
-        System.out.println("Consumed Message: " + companyCode);
+        logger.info("Request received for deleting a company with companyCode {}",companyCode);
         companyService.deleteCompanyByCode(companyCode);
+        logger.info("Company and corresponding stocks deleted successfully.");
     }
 }

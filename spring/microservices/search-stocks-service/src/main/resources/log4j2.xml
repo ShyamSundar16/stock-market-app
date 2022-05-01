@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="info" name="kafka-log-config" packages="com.stockmarketapp.stocksmanagementservice">
+<Configuration status="info" name="kafka-log-config" packages="com.stockmarketapp.searchstocksservice">
 
     <Appenders>
         <Kafka name="kafkaAppender" topic="stock-app-logs">
