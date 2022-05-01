@@ -3,6 +3,8 @@ package com.stockmarketapp.usermanagement.controller;
 import com.stockmarketapp.usermanagement.entities.User;
 import com.stockmarketapp.usermanagement.repositories.UserRepository;
 import com.stockmarketapp.usermanagement.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,17 +20,18 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @CrossOrigin
     @GetMapping("")
     public List<User> getAllUsers() {
-        System.out.println("Finding users from db..");
+        logger.info("Finding users from db..");
         return userService.getAllUsers();
     }
 
     @CrossOrigin
     @PostMapping("/register")
     public String addUser(@RequestBody User user) throws Exception {
-        System.out.println("Reached ");
+        logger.info("Registering a new user");
         userService.save(user);
         return "redirect:../";
     }
@@ -37,7 +40,7 @@ public class UserController {
     @CrossOrigin
     @GetMapping("/{id}")
     public User getUserById(@PathVariable String id) {
-        System.out.println("Find user with Id : " + id);
+        logger.info("Find user with Id : " + id);
         return userService.getUserById(id);
     }
 
@@ -50,7 +53,7 @@ public class UserController {
     @CrossOrigin
     @DeleteMapping("/{id}")
     public boolean removeUser(@PathVariable String id) {
-        System.out.println("User to delete: " + id);
+        logger.info("User to delete: " + id);
         return userService.removeUser(id);
     }
 
