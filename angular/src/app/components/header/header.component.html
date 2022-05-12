@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<h1 [ngStyle]="headerStyle">Stock Management App</h1>
+  <div class="topnav">
+    <!-- <a [routerLink]="['home']" *ngIf="getUserSession() && !checkIfAdminUser()"><i class="fa fa-fw fa-home" ></i> Home</a>
+    <a [routerLink]="['searchFlight']" *ngIf="getUserSession() && !checkIfAdminUser()"><i class="fa fa-fw fa-search"></i> Search</a>
+    <a [routerLink]="['admin','manageFlights']" *ngIf="getUserSession() && checkIfAdminUser()"><i class="fa fa-fw fa-home"></i> Manage Airlines</a>
+    <a [routerLink]="['contact']"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+    <a [routerLink]="['ticketHistory']" *ngIf="getUserSession() && !checkIfAdminUser()"><i class="fa fa-fw fa-envelope"></i> Ticket History</a>
+    <a [routerLink]="['login']" style="float: right;" *ngIf="getUserSession()" (click)="clearSession()"><i class="fa fa-fw fa-user"></i> Logout</a>
+    <a [routerLink]="['login']" style="float: right;" *ngIf="!getUserSession()"><i class="fa fa-fw fa-user"></i> Login</a> -->
+<a [routerLink]="['login']">Login</a>  
+<a>Logout</a>
+<a [routerLink]="['admin', 'manageCompanies']">Manage Companies</a>
+<a>Home</a>
+</div>
