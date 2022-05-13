@@ -4,18 +4,24 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { ManagecompanyComponent } from './components/managecompany/managecompany.component';
+import { ManagestockComponent } from './components/managestock/managestock.component';
 
 
 const routes: Routes = [
   {
     path: "manageCompanies",
     component: ManagecompanyComponent
+  },
+  {
+    path: "manageStocks",
+    component: ManagestockComponent
   }
 ];
 
 @NgModule({
   declarations: [
-    ManagecompanyComponent
+    ManagecompanyComponent,
+    ManagestockComponent
   ],
   imports: [
     CommonModule,RouterModule.forChild(routes),HttpClientModule,ReactiveFormsModule

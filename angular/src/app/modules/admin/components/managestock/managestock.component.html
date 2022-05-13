@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- <app-sidenav></app-sidenav> -->
+
+
+<div class="content">
+  <button type="button" class="addbtn" (click)="showAddForm()"><i class="fa fa-fw fa-plus"></i>Add Stock</button>
+
+  <div class="container">
+    <form [formGroup]="updateStockForm" class="form-inline" *ngIf="showUpdateStockForm">
+      <div>
+        <input type="text" placeholder="Company Name" name="CompanyName" formControlName="companyName" required>
+        <input type="text" placeholder="Company Code" name="CompanyCode" formControlName="companyCode" required>
+        <input type="text" placeholder="Stock Price" name="StockPrice" formControlName="stockPrice" required>
+        <br>
+        <button type="submit"  style="width: 50%;" class="editbtn"><i class="fa fa-fw fa-check"></i>Update</button><button type="submit"  style="width: 50%;" (click)="cancelUpdateForm()" class="deletebtn"><i class="fa fa-fw fa-remove"></i>Cancel</button>
+
+      </div>
+    </form>
+  </div>
+
+  <div class="container">
+    <form [formGroup]="addStockForm" class="form-inline" *ngIf="showAddStockForm">
+      <div>
+        <input type="text" placeholder="Company Name" name="CompanyName" formControlName="companyName" required>
+        <input type="text" placeholder="Company Code" name="CompanyCode" formControlName="companyCode" required>
+        <input type="text" placeholder="Stock Price" name="StockPrice" formControlName="stockPrice" required>
+        <br>
+        <button type="submit" style="width: 50%;" class="editbtn"><i class="fa fa-fw fa-check"></i>Add</button><button type="submit"  style="width: 50%;" (click)="cancelAddForm()" class="deletebtn"><i class="fa fa-fw fa-remove"></i>Cancel</button>
+
+      </div>
+    </form>
+  </div>
+  
+  <table id="companies">
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Stock Price</th>
+    </tr>
+    
+    <tr *ngFor="let st of stock">
+      <td>{{st.companyName}}</td>
+      <td>{{st.companyCode}}</td>
+      <td>{{st.stockPrice}}</td>
+      <!-- <td><button type="button" class="deletebtn" (click)="deleteCompanyByCode(comp.companyCode)"><i
+            class="fa fa-fw fa-trash"></i>Delete</button></td>
+      <td><button  type="button" class="editbtn" (click)="showUpdateForm(comp)"><i
+            class="fa fa-fw fa-edit"></i>Edit</button></td> -->
+    </tr>
+
+  </table>
+</div>

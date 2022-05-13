@@ -1,0 +1,48 @@
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet"
+  id="bootstrap-css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<div class="content">
+  <!-- <p>You selected {{selected}}</p> -->
+  <!-- <p><b><i>Welcome {{userService.user.email}},</i></b></p> -->
+
+  <p><b><i>Welcome,</i></b></p>
+
+  <table id="stocks">
+    <tr>
+      <th>From</th>
+      <th>To</th>
+    </tr>
+
+    <tr>
+      <td>
+        <input type="date" id="fromDate" name="fromDate" (change)="updateFromDate($event)">
+      </td>
+      <td>
+        <input type="date" id="toDate" name="toDate" (change)="updateToDate($event)">
+      </td>
+      <td><button type="button" class="editbtn" (click)="searchFlights()"><i
+            class="fa fa-fw fa-search"></i>search</button></td>
+    </tr>
+
+  </table>
+  <br>
+  <br>
+
+  <table id="stocks" *ngIf="viewSearchResults()">
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Stock Price</th>
+    </tr>
+    <tr *ngFor="let stock of stocks">
+      <td>{{stock.companyName}}</td>
+      <td>{{stock.companyCode}}</td>
+      <td>{{stock.stockPrice}}</td>
+    </tr>
+  </table>
+  <br>
+  <br>
+
+</div>

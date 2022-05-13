@@ -9,9 +9,11 @@ import { FooterComponent } from './components/footer/footer.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SearchstockComponent } from './components/searchstock/searchstock.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
+  { path: "searchStock", component: SearchstockComponent },
   { path: "admin", loadChildren: () => import("./modules/admin/admin.module").then(m => m.AdminModule) },
   { path: "**", component: LoginComponent }
 
@@ -22,7 +24,8 @@ const routes: Routes = [
     AppComponent,
     LoginComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    SearchstockComponent
   ],
   imports: [
     BrowserModule,
