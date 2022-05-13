@@ -18,12 +18,10 @@ public class StockService {
     @Autowired
     StockRepository stockRepository;
 
-    @Cacheable("stocks")
     public List<Stock> getAllStocks() {
         return stockRepository.findAll();
     }
 
-    @Cacheable("stock")
     public ResponseEntity<Stock> getStockById(String id) throws StockNotFoundException {
         Optional<Stock> stock = stockRepository.findById(id);
         if (stock.isPresent()) {

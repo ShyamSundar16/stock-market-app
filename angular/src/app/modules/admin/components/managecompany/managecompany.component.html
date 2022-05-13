@@ -25,10 +25,9 @@
   </div>
 
   <div class="container">
-    <form [formGroup]="addCompanyForm" class="form-inline" *ngIf="showAddCompanyForm">
+    <form [formGroup]="addCompanyForm" class="form-inline" (ngSubmit)="addCompany()" *ngIf="showAddCompanyForm">
       <div>
         <input type="text" placeholder="Company Name" name="CompanyName" formControlName="companyName" required>
-        <input type="text" placeholder="Company Code" name="CompanyCode" formControlName="companyCode" required>
         <input type="text" placeholder="Company Ceo" name="CompanyCeo" formControlName="companyCeo" required>
         <input type="text" placeholder="Company Turnover" name="CompanyTurnover" formControlName="companyTurnover" required>
         <input type="text" placeholder="Company Website" name="CompanyWebsite" formControlName="companyWebsite" required>
@@ -57,9 +56,9 @@
       <td>{{comp.companyTurnover}}</td>
       <td>{{comp.companyWebsite}}</td>
       <td>{{comp.stockExchange}}</td>
-      <!-- <td><button type="button" class="deletebtn" (click)="deleteCompanyByCode(comp.companyCode)"><i
+      <td><button type="button" class="deletebtn" (click)="deleteCompanyByCode(comp.companyCode)"><i
             class="fa fa-fw fa-trash"></i>Delete</button></td>
-      <td><button  type="button" class="editbtn" (click)="showUpdateForm(comp)"><i
+      <!-- <td><button  type="button" class="editbtn" (click)="showUpdateForm(comp)"><i
             class="fa fa-fw fa-edit"></i>Edit</button></td> -->
     </tr>
 

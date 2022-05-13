@@ -17,7 +17,7 @@ export class ManagecompanyComponent implements OnInit {
   company: Company[] = [];
 
 
-  constructor() {
+  constructor(private companyService: CompanyService) {
     this.addCompanyForm = new FormGroup({
       companyName: new FormControl("", [Validators.required]),
       companyCode: new FormControl("", [Validators.required]),
@@ -34,7 +34,7 @@ export class ManagecompanyComponent implements OnInit {
       companyWebsite: new FormControl("", [Validators.required]),
       stockExchange: new FormControl("", [Validators.required])
     })
-    //this.findAllCompanies();
+    this.findAllCompanies();
   }
 
 
@@ -56,21 +56,21 @@ export class ManagecompanyComponent implements OnInit {
   cancelUpdateForm() {
     this.showUpdateCompanyForm = false;
   }
-  // findAllCompanies() {
-  //   this.companyService.getAllCompanies()
-  //     .subscribe((res: any) => {
-  //       this.company = res;
-  //     })
-  // }
+  findAllCompanies() {
+    this.companyService.getAllCompanies()
+      .subscribe((res: any) => {
+        this.company = res;
+      })
+  }
 
-  // addCompany() {
-  //   this.companyService.saveCompany(this.addCompanyForm.value)
-  //     .subscribe((res: any) => {
-  //       this.addCompanyForm.reset();
-  //       this.showAddCompanyForm = false;
-  //       this.findAllCompanies();
-  //     });
-  // }
+  addCompany() {
+    this.companyService.saveCompany(this.addCompanyForm.value)
+      .subscribe((res: any) => {
+        this.addCompanyForm.reset();
+        this.showAddCompanyForm = false;
+        this.findAllCompanies();
+      });
+  }
 
   // modifyCompany() {
   //   this.companyService.updateCompany(this.updateCompanyForm.value)
@@ -79,11 +79,11 @@ export class ManagecompanyComponent implements OnInit {
   //       this.findAllCompanies()
   //     });
   // }
-  // deleteCompanyByCode(code: string) {
-  //   this.companyService.deleteCompany(code)
-  //     .subscribe((res: any) => {
-  //       this.findAllCompanies()
-  //     });
-  // }
+  deleteCompanyByCode(code: string) {
+    this.companyService.deleteCompany(code)
+      .subscribe((res: any) => {
+        this.findAllCompanies()
+      });
+  }
 
 }

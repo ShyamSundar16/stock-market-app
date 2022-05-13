@@ -5,24 +5,59 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <div class="content">
   <!-- <p>You selected {{selected}}</p> -->
-  <!-- <p><b><i>Welcome {{userService.user.email}},</i></b></p> -->
+  <p><b><i>Welcome {{userService.user.email}},</i></b></p>
 
-  <p><b><i>Welcome,</i></b></p>
+  <!-- <p><b><i>Welcome,</i></b></p> -->
 
-  <table id="stocks">
+  <label class="radio-inline"><input type="radio" name="allcompany" (click)="setAllCompany()" checked>Get all companies</label>
+  <label class="radio-inline"><input type="radio" name="allcompany" (click)="setCompanyByCode()">Get company by code</label>
+  <label class="radio-inline"><input type="radio" name="allcompany" (click)="setCompanyByRange()">Filter stock by date</label>
+
+
+  <table id="stocks"  *ngIf="getCompanyByCode ">
     <tr>
+      <th>Company Name</th>
+    </tr>
+    <tr>
+      <td>
+        <select class="form-control select2" (change)="updateCompanyCode($event)">
+          <option>Select</option>
+  
+          <option *ngFor="let comp of company" [value]="comp.companyCode">
+            {{comp.companyCode}}
+          </option>
+        </select>
+      </td>
+      <td><button type="button" class="editbtn" (click)="searchStocksByCode()"><i
+            class="fa fa-fw fa-search"></i>search</button></td>
+    </tr>
+
+  </table>
+
+  <table id="stocks"  *ngIf="getCompanyByRange">
+    <tr>
+      <th>Company Name</th>
       <th>From</th>
       <th>To</th>
     </tr>
-
     <tr>
+      <td>
+        <select class="form-control select2" (change)="updateCompanyCode($event)">
+          <option>Select</option>
+  
+          <option *ngFor="let comp of company" [value]="comp.companyCode">
+            {{comp.companyCode}}
+          </option>
+        </select>
+      </td>
+  
       <td>
         <input type="date" id="fromDate" name="fromDate" (change)="updateFromDate($event)">
       </td>
       <td>
         <input type="date" id="toDate" name="toDate" (change)="updateToDate($event)">
       </td>
-      <td><button type="button" class="editbtn" (click)="searchFlights()"><i
+      <td><button type="button" class="editbtn" (click)="searchStocks()"><i
             class="fa fa-fw fa-search"></i>search</button></td>
     </tr>
 
@@ -45,4 +80,28 @@
   <br>
   <br>
 
+  <table id="stocks"  *ngIf="!getCompanyByCode && ! getCompanyByRange">
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>CEO</th>
+      <th>TurnOver</th>
+      <th>Website</th>
+      <th>Exchange</th>
+    </tr>
+    
+    <tr *ngFor="let comp of company">
+      <td>{{comp.companyName}}</td>
+      <td>{{comp.companyCode}}</td>
+      <td>{{comp.companyCeo}}</td>
+      <td>{{comp.companyTurnover}}</td>
+      <td>{{comp.companyWebsite}}</td>
+      <td>{{comp.stockExchange}}</td>
+      <!-- <td><button type="button" class="deletebtn" (click)="deleteCompanyByCode(comp.companyCode)"><i
+            class="fa fa-fw fa-trash"></i>Delete</button></td>
+      <td><button  type="button" class="editbtn" (click)="showUpdateForm(comp)"><i
+            class="fa fa-fw fa-edit"></i>Edit</button></td> -->
+    </tr>
+
+  </table>
 </div>

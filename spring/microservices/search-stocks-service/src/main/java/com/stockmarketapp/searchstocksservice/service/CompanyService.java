@@ -32,12 +32,10 @@ public class CompanyService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Cacheable("companies")
     public List<Company> getAllCompanies() {
         return companyRepository.findAll();
     }
 
-    @Cacheable("company")
     public ResponseEntity<Company> getCompanyById(String id) throws CompanyNotFoundException {
         logger.info("Fetching details for company : {}",id);
         Company company = companyRepository.findCompanyByCompanyCode(id);
@@ -55,7 +53,6 @@ public class CompanyService {
         }
     }
 
-    @Cacheable("stocks")
     public ResponseEntity<Company> getStockPricesForCompany(String companyCode, String startDate, String endDate) throws CompanyNotFoundException, ParseException {
         logger.info("Fetching stocks for company : {}",companyCode);
         Company company = companyRepository.findCompanyByCompanyCode(companyCode);

@@ -10,6 +10,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SearchstockComponent } from './components/searchstock/searchstock.component';
+import { CompanyService } from './service/company.service';
+import { StockService } from './service/stock.service';
+import { SearchService } from './service/search.service';
+import { UserService } from './service/user.service';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -32,7 +36,7 @@ const routes: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(routes), ReactiveFormsModule,HttpClientModule
   ],
-  providers: [],
+  providers: [CompanyService,StockService,SearchService,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

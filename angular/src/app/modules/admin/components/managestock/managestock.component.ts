@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Stock } from 'src/app/models/Stock';
+import { StockService } from 'src/app/service/stock.service';
 
 @Component({
   selector: 'app-managestock',
@@ -16,7 +17,7 @@ export class ManagestockComponent implements OnInit {
   stock: Stock[] = [];
 
 
-  constructor() {
+  constructor(private stockService: StockService) {
     this.addStockForm = new FormGroup({
       companyName: new FormControl("", [Validators.required]),
       companyCode: new FormControl("", [Validators.required]),
@@ -49,21 +50,14 @@ export class ManagestockComponent implements OnInit {
   cancelUpdateForm() {
     this.showUpdateStockForm = false;
   }
-  // findAllCompanies() {
-  //   this.companyService.getAllCompanies()
-  //     .subscribe((res: any) => {
-  //       this.stock = res;
-  //     })
-  // }
 
-  // addCompany() {
-  //   this.companyService.saveCompany(this.addCompanyForm.value)
-  //     .subscribe((res: any) => {
-  //       this.addCompanyForm.reset();
-  //       this.showAddCompanyForm = false;
-  //       this.findAllCompanies();
-  //     });
-  // }
+  addStock() {
+    this.stockService.saveStock(this.addStockForm.value)
+      .subscribe((res: any) => {
+        this.addStockForm.reset();
+        this.showAddStockForm = false;
+      });
+  }
 
   // modifyCompany() {
   //   this.companyService.updateCompany(this.updateCompanyForm.value)

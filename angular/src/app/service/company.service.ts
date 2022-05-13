@@ -4,7 +4,9 @@ import { Company } from "../models/Company";
 
 @Injectable()
 export class CompanyService {
-    private url: string = "http://localhost:8989/api/admin/flights";
+    private url: string = "http://localhost:8989/stockmanagement/api/v1.0/market";
+    private searchurl: string = "http://localhost:8989/searchmanagement/api/v1.0/market";
+
     private comp= new Company();
 
     public set company(newCompany: Company) {
@@ -23,18 +25,15 @@ export class CompanyService {
     constructor(private httpClient: HttpClient) {
     }
     getAllCompanies() {
-        return this.httpClient.get(this.url);
+        return this.httpClient.get(this.searchurl+"/company/getAll");
     }
 
     saveCompany(company: Company) {
-        return this.httpClient.post(this.url, company);
+        return this.httpClient.post(this.url + "/company/register", company);
     }
 
     deleteCompany(code: string) {
-        return this.httpClient.delete(this.url + "/" + code);
+        return this.httpClient.delete(this.url + "/company/delete/" + code);
     }
 
-    updateCompany(company: Company) {
-        return this.httpClient.put(this.url + "/" + company.companyCode, company);
-    }
 }

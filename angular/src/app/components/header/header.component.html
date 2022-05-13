@@ -6,15 +6,10 @@
     <a [routerLink]="['searchFlight']" *ngIf="getUserSession() && !checkIfAdminUser()"><i class="fa fa-fw fa-search"></i> Search</a>
     <a [routerLink]="['admin','manageFlights']" *ngIf="getUserSession() && checkIfAdminUser()"><i class="fa fa-fw fa-home"></i> Manage Airlines</a>
     <a [routerLink]="['contact']"><i class="fa fa-fw fa-envelope"></i> Contact</a>
-    <a [routerLink]="['ticketHistory']" *ngIf="getUserSession() && !checkIfAdminUser()"><i class="fa fa-fw fa-envelope"></i> Ticket History</a>
+    <a [routerLink]="['ticketHistory']" *ngIf="getUserSession() && !checkIfAdminUser()"><i class="fa fa-fw fa-envelope"></i> Ticket History</a> -->
     <a [routerLink]="['login']" style="float: right;" *ngIf="getUserSession()" (click)="clearSession()"><i class="fa fa-fw fa-user"></i> Logout</a>
-    <a [routerLink]="['login']" style="float: right;" *ngIf="!getUserSession()"><i class="fa fa-fw fa-user"></i> Login</a> -->
-<a [routerLink]="['login']">Login</a>  
-<a [routerLink]="['login']">Logout</a>
-<a [routerLink]="['admin', 'manageCompanies']">Manage Companies</a>
-<a [routerLink]="['admin', 'manageStocks']">Manage Stocks</a>
-<a [routerLink]="['searchStock']">Search Stock</a>
-
-
-<a>Home</a>
+    <a [routerLink]="['login']" style="float: right;" *ngIf="!getUserSession()"><i class="fa fa-fw fa-user"></i> Login</a>
+    <a [routerLink]="['admin', 'manageCompanies']" *ngIf="getUserSession() && checkIfAdminUser()">Manage Companies</a>
+    <a [routerLink]="['admin', 'manageStocks']" *ngIf="getUserSession() && checkIfAdminUser()">Manage Stocks</a>
+    <a [routerLink]="['searchStock']" *ngIf="getUserSession() && !checkIfAdminUser()">Search Stock</a>
 </div>

@@ -4,8 +4,8 @@ import { Stock } from "../models/Stock";
 
 @Injectable()
 export class StockService {
-    private url: string = "http://localhost:8989/api/admin/flights";
-    private stock= new Stock();
+    private url: string = "http://localhost:8989/stockmanagement/api/v1.0/market";
+    private searchurl: string = "http://localhost:8989/searchmanagement/api/v1.0/market";    private stock= new Stock();
 
     public set Stock(newStock: Stock) {
         this.stock.companyCode = newStock.companyCode;
@@ -19,12 +19,12 @@ export class StockService {
     }
     constructor(private httpClient: HttpClient) {
     }
-    getAllStocks() {
-        return this.httpClient.get(this.url);
-    }
+ /*    getAllStocks() {
+        return this.httpClient.get(this.searchurl);
+    } */
 
-    saveStock(Stock: Stock) {
-        return this.httpClient.post(this.url, Stock);
+    saveStock(stock: Stock) {
+        return this.httpClient.post(this.url+"/stock/add/"+stock.companyCode, stock);
     }
 
     deleteStock(code: string) {

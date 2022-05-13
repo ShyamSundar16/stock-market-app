@@ -22,7 +22,7 @@
   </div>
 
   <div class="container">
-    <form [formGroup]="addStockForm" class="form-inline" *ngIf="showAddStockForm">
+    <form [formGroup]="addStockForm" class="form-inline" (ngSubmit)="addStock()" *ngIf="showAddStockForm">
       <div>
         <input type="text" placeholder="Company Name" name="CompanyName" formControlName="companyName" required>
         <input type="text" placeholder="Company Code" name="CompanyCode" formControlName="companyCode" required>

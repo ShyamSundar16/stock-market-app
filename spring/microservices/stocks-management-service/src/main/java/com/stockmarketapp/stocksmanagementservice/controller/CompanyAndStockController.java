@@ -47,18 +47,11 @@ public class CompanyAndStockController {
     @PostMapping("/company/register")
     public ResponseEntity<Company> saveCompany(@RequestBody Company company) {
         //TODO test implementation - To be removed
-        Company newCompany = new Company();
-        newCompany.setCompanyName("Company1");
-        newCompany.setCompanyCode("COMP01");
-        newCompany.setCompanyCeo("Test");
-        newCompany.setCompanyWebsite("www.comp1.com");
-        newCompany.setStockExchange("NSE");
-        newCompany.setCompanyTurnover(new BigDecimal(300000000));
 
         company.set_id(companyIdIndex.incrementAndGet());
         company.setCompanyCode(company.getCompanyName().substring(0, 4) +company.get_id());
-        logger.info("Registering a new company with companyCode {}.",newCompany.getCompanyCode());
-        companyKafkaTemplate.send(ADD_COMPANY_TOPIC, newCompany);
+        logger.info("Registering a new company with companyCode {}.",company.getCompanyCode());
+        companyKafkaTemplate.send(ADD_COMPANY_TOPIC, company);
         companyKafkaTemplate.flush();
         logger.info("Successfully sent to Add Company topic.");
     	return new ResponseEntity<Company>(company,HttpStatus.OK);
@@ -69,11 +62,7 @@ public class CompanyAndStockController {
     @PostMapping("/stock/add/{companyCode}")
     public ResponseEntity<Stock> saveStock(@RequestBody Stock stock,@PathVariable String companyCode ) {
         //TODO test implementation - To be removed
-    	stock.setCompanyName(companyCode);
-    	stock.setStockPrice(new BigDecimal(580));
-    	stock.setCompanyCode("COMP01");
         stock.setCreatedAt(new Date());
-
         stock.set_id(stockIdIndex.incrementAndGet());
         logger.info("Registering a new Stock for a companyCode {}.",companyCode);
         stockKafkaTemplate.send(ADD_STOCK_TOPIC, stock);
