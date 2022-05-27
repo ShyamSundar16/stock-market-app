@@ -4,8 +4,8 @@ import { Stock } from "../models/Stock";
 
 @Injectable()
 export class StockService {
-    private url: string = "http://localhost:8989/stockmanagement/api/v1.0/market";
-    private searchurl: string = "http://localhost:8989/searchmanagement/api/v1.0/market";    private stock= new Stock();
+    private url: string = "http://ec2-13-56-18-89.us-west-1.compute.amazonaws.com:5000/stockmanagement/api/v1.0/market";
+    private searchurl: string = "http://ec2-13-56-18-89.us-west-1.compute.amazonaws.com:5000/searchmanagement/api/v1.0/market";    private stock= new Stock();
 
     public set Stock(newStock: Stock) {
         this.stock.companyCode = newStock.companyCode;
