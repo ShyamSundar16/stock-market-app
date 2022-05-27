@@ -23,7 +23,7 @@ public class KafkaConsumerConfiguration {
     public ConsumerFactory<String, Company> companyConsumerFactory() {
         Map<String, Object> config = new HashMap<>();
 
-        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "ec2-54-219-88-54.us-west-1.compute.amazonaws.com:9092");
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_id");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, CompanyDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "com.stockmarketapp.searchstocksservice.config.CompanyDeserializer");
@@ -43,7 +43,7 @@ public class KafkaConsumerConfiguration {
     public ConsumerFactory<String, Stock> stockConsumerFactory() {
         Map<String, Object> config = new HashMap<>();
 
-        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "ec2-54-219-88-54.us-west-1.compute.amazonaws.com:9092");
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_id");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StockDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "com.stockmarketapp.searchstocksservice.config.StockDeserializer");
@@ -62,7 +62,7 @@ public class KafkaConsumerConfiguration {
     public ConsumerFactory<String, String> deleteCompanyConsumerFactory() {
         Map<String, Object> config = new HashMap<>();
 
-        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "ec2-54-219-88-54.us-west-1.compute.amazonaws.com:9092");
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_id");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StockDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StockDeserializer.class );

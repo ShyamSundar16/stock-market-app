@@ -23,7 +23,7 @@ public class KafkaProducerConfiguration {
     public ProducerFactory<String, Company> addCompanyProducerFactory() {
         Map<String, Object> config = new HashMap<>();
 
-        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "ec2-54-219-88-54.us-west-1.compute.amazonaws.com:9092");
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "com.stockmarketapp.stocksmanagementservice.config.CompanySerializer");
 
@@ -39,7 +39,7 @@ public class KafkaProducerConfiguration {
     public ProducerFactory<String, Stock> addStockProducerFactory() {
         Map<String, Object> config = new HashMap<>();
 
-        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "ec2-54-219-88-54.us-west-1.compute.amazonaws.com:9092");
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "com.stockmarketapp.stocksmanagementservice.config.StockSerializer");
 
@@ -55,7 +55,7 @@ public class KafkaProducerConfiguration {
     public ProducerFactory<String, String> deleteCompanyProducerFactory() {
         Map<String, Object> config = new HashMap<>();
 
-        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "ec2-54-219-88-54.us-west-1.compute.amazonaws.com:9092");
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 

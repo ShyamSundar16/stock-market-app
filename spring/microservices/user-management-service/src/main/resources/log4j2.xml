@@ -4,7 +4,7 @@
     <Appenders>
         <Kafka name="kafkaAppender" topic="stock-app-logs">
             <JSONLayout />
-            <Property name="bootstrap.servers">localhost:9092</Property>
+            <Property name="bootstrap.servers">ec2-54-219-88-54.us-west-1.compute.amazonaws.com:9092</Property>
         </Kafka>
 
         <!--stdout/stderr included for testing Oozie log4j edits-->
